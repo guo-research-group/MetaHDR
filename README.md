@@ -12,3 +12,9 @@ or
 git clone https://github.com/DeanHazineh/DFlat
 pip install -e .
 ```
+Then you can use our code, e.g., reconstruct a HDR image, by
+```
+git clone https://github.com/guo-research-group/MetaHDR
+cd MetaHDR
+python HDRreconstruction.py
+```
