@@ -18,6 +18,8 @@ git clone https://github.com/guo-research-group/MetaHDR
 cd MetaHDR
 python HDRreconstruction.py
 ```
+### Sample Result - Metasurface Simulation
+![github_result2](https://github.com/guo-research-group/MetaHDR/assets/149278360/ac4aee93-6d48-45ac-9ba1-4b9aeed5389d)
 
-### Sample Result
+### Sample Result - HDR reconstruction
 ![github_result1](https://github.com/guo-research-group/MetaHDR/assets/149278360/85f47837-7f6f-408d-b3a2-17d0c4d84d5e)
