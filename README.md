@@ -20,4 +20,4 @@ python HDRreconstruction.py
 ```
 
 ### Sample Result
-![github_result1](https://github.com/guo-research-group/MetaHDR/assets/149278360/448fdf9a-f83b-4111-9534-a6db55ee8aa7)
+![github_result1](https://github.com/guo-research-group/MetaHDR/assets/149278360/85f47837-7f6f-408d-b3a2-17d0c4d84d5e)
