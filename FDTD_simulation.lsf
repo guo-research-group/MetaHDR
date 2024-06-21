@@ -9,6 +9,7 @@ nm=1e-9;
 w = [310:1:770]*nm; #we sweep across 310 nm - 770 nm wavelengths of light
 frq_point = length(w);
 
+
 # Nanostructure dimensions
 Th = 775*nm;
 substhick = 800*nm;
@@ -16,6 +17,7 @@ unit = [300]*nm;
 propGap = 700*nm;
 mname = "Transmission"; # monitor name
 farpoint = substhick+Th+500*1e-6;
+
 
 # Material definition
 if(!materialexists("SnoChip_SiN")){
@@ -36,6 +38,7 @@ setmaterial("SnoChip_SiN","sampled data",sampled2);
 # The following two sections add two waveform sources with different polarizations
 # to the simulation environment, and place them at the required location.
 
+
 sources; # circular polarized light
 addplane;
 set("name","Ex"); 
@@ -49,6 +52,7 @@ set("z",substhick/2.5);
 set("wavelength start", w(1));
 set("wavelength stop", w(length(w)));
 
+
 sources; # circular polarized light
 addplane;
 set("name","Ey"); set("injection axis","z-axis");
@@ -60,6 +64,7 @@ set("z",substhick/2.5);
 set("wavelength start", w(1));
 set("wavelength stop", w(length(w)));
 
+
 # Sweep over variations of the structure that is placed on top of this substrate.
 addrect;
 set("name", "substrate");
@@ -69,6 +74,7 @@ set("y",0);
 setnamed("substrate","z min",0);
 setnamed("substrate","z max",substhick);
 set("material", "SiO2 (Glass) - Palik");
+
 
 monitors;
 addprofile;
@@ -81,6 +87,7 @@ set("frequency points",frq_point);
 set("x",0); 
 set("y",0); 
 set("z",substhick+Th+0.8*propGap);
+
 
 # define the FDTD boundary conditions
 addfdtd; 
@@ -101,6 +108,7 @@ set("mesh accuracy",2);
 set("dt stability factor",0.85);
 set('index',1);
 set("use early shutoff",1);
+
 
 addmesh;
 set("name", "newmesh");
@@ -146,6 +154,7 @@ for(uniti = 1:length(unit)){
     setnamed("newmesh", "x span", 1*unit(uniti));
     setnamed("newmesh", "y span", 1*unit(uniti));   
 
+
     # obtain the reference phase and transmittance at the far field with no nano-
     # structure present
     select(str);
@@ -160,6 +169,8 @@ for(uniti = 1:length(unit)){
     refphiy=angle(refE(2,1:frq_point));
     refphiz=angle(refE(3,1:frq_point)); 
     matlabsave("SimParams_unit" + num2str(unit(uniti)/nm) + "_RefField", refE, refphix, refphiy, refphiz, T); 
+
+
     # After reference calculation add things back in
     switchtolayout;
     addcircle;
@@ -174,18 +185,11 @@ for(uniti = 1:length(unit)){
     setnamed(str, "radius", 15*nm);
     setnamed(str, "radius 2", 15*nm);
     
-    #Lx_vect = [275*nm:5*nm:unit(uniti)-50*nm];
-    #Ly_vect = [290*nm:5*nm:unit(uniti)-50*nm];
     Lx_vect = [100*nm : 1*nm: 260*nm];
     Ly_vect = [100*nm : 1*nm: 260*nm];
     matlabsave("SimParams"+"_unit" +num2str(unit(uniti)/nm), Th, Lx_vect, Ly_vect, w, f);
+
     for (len_inx = 1:length(Lx_vect)){    
-           
-        #resume partial
-        #if (len_inx!=1){
-            #Ly_vect = [60*nm:5*nm:unit(uniti)-50*nm];
-        #}    
-    
         Lx = Lx_vect(len_inx);
         Ly = Ly_vect(len_inx);
         setnamed(str, "radius", Lx/2);
@@ -209,22 +213,3 @@ for(uniti = 1:length(unit)){
            
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-               
