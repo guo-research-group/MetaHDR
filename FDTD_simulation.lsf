@@ -1,0 +1,230 @@
+# Clear data and set up the folder
+switchtolayout; deleteall;
+clear; 
+savefolder = 'test2/';
+
+# INITIAL DECLARATIONS + IMPORTANT PARAMETERS
+# =========================================================================================
+nm=1e-9;
+w = [310:1:770]*nm; #we sweep across 310 nm - 770 nm wavelengths of light
+frq_point = length(w);
+
+# Nanostructure dimensions
+Th = 775*nm;
+substhick = 800*nm;
+unit = [300]*nm;
+propGap = 700*nm;
+mname = "Transmission"; # monitor name
+farpoint = substhick+Th+500*1e-6;
+
+# Material definition
+if(!materialexists("SnoChip_SiN")){
+sampled = readdata("200c_SiN_on_Silica_1087p98nm_newR5.txt");
+s=size(sampled);
+sampled2 = matrix(s(1),2);
+sampled2(1:s(1),1) = c/(sampled(1:s(1),1)*nm);# Set frequencies.
+sampled2(1:s(1),2) = ( sampled(1:s(1),2) + 1i*sampled(1:s(1),3) )^2; #Set permittivites. (square of the refractive indices)
+temp = addmaterial("Sampled data");
+setmaterial(temp,"name","SnoChip_SiN");
+setmaterial("SnoChip_SiN","sampled data",sampled2);
+}
+
+
+# PARAMETER INDEPENDENT BUILDS
+# ===============================================================================
+
+# The following two sections add two waveform sources with different polarizations
+# to the simulation environment, and place them at the required location.
+
+sources; # circular polarized light
+addplane;
+set("name","Ex"); 
+set("injection axis","z-axis");
+set("direction","forward"); 
+set("polarization angle",0);
+set("phase",0);
+set("x",0);
+set("y",0);
+set("z",substhick/2.5); 
+set("wavelength start", w(1));
+set("wavelength stop", w(length(w)));
+
+sources; # circular polarized light
+addplane;
+set("name","Ey"); set("injection axis","z-axis");
+set("direction","forward"); set("polarization angle",90);
+set("phase",0);
+set("x",0);
+set("y",0);
+set("z",substhick/2.5); 
+set("wavelength start", w(1));
+set("wavelength stop", w(length(w)));
+
+# Sweep over variations of the structure that is placed on top of this substrate.
+addrect;
+set("name", "substrate");
+set("x",0); 
+set("z",0);  
+set("y",0);
+setnamed("substrate","z min",0);
+setnamed("substrate","z max",substhick);
+set("material", "SiO2 (Glass) - Palik");
+
+monitors;
+addprofile;
+set("name", mname);
+set("monitor type","2D Z-normal");
+set("override global monitor settings",1);
+set("use source limits",1);
+set("use wavelength spacing",1);
+set("frequency points",frq_point); 
+set("x",0); 
+set("y",0); 
+set("z",substhick+Th+0.8*propGap);
+
+# define the FDTD boundary conditions
+addfdtd; 
+select("FDTD");
+set("dimension","3D");
+set("x min bc","Bloch");
+set("x max bc","Bloch");
+set("y min bc","Bloch");
+set("y max bc","Bloch");
+set("z min bc","PML");
+set("z max bc","PML");
+set("x",0); 
+set("y",0); 
+set("z min",substhick/2-substhick/4);
+set("z max",Th+substhick+propGap);
+set("mesh type","auto non-uniform");
+set("mesh accuracy",2);
+set("dt stability factor",0.85);
+set('index',1);
+set("use early shutoff",1);
+
+addmesh;
+set("name", "newmesh");
+set("x",0); 
+set("y",0); 
+set("z min",substhick-20*nm);
+set("z max", substhick + Th+20*nm);
+# 10 nm gives good results according to Lumerical Exchange
+# but 5 nm is more accurate
+set("dx",5*nm);
+set("dy",5*nm);
+set("dz",5*nm);
+
+# PARAMETER SWEEPING
+# ================================================================================
+# We need to initialize the object first outside the for loop
+addcircle;
+str="nanostruct";
+set("name",str);
+setnamed(str, "make ellipsoid", 1);
+setnamed(str, "radius", 15*nm);
+setnamed(str, "radius 2", 15*nm);
+setnamed(str,"x",0);
+setnamed(str,"y",0);
+setnamed(str,"z min",substhick); 
+setnamed(str,"z max",substhick+Th);
+setnamed(str,"material","SnoChip_SiN");
+
+# the outer lopp iterates oevr the nano-cell size, the interloop iterates over the
+# nano-structure radius
+for(uniti = 1:length(unit)){
+    switchtolayout;
+    setnamed("Ex","x span",unit(uniti)*2);
+    setnamed("Ex","y span",unit(uniti)*2);
+    setnamed("Ey","x span",unit(uniti)*2);
+    setnamed("Ey","y span",unit(uniti)*2);
+    setnamed("substrate","x span",unit(uniti)*2);
+    setnamed("substrate","y span",unit(uniti)*2);
+    setnamed(mname,"x span",2.5*unit(uniti));
+    setnamed(mname,"y span",2.5*unit(uniti));
+    setnamed("FDTD","x span",unit(uniti));
+    setnamed("FDTD","y span",unit(uniti));
+    setnamed("newmesh", "x span", 1*unit(uniti));
+    setnamed("newmesh", "y span", 1*unit(uniti));   
+
+    # obtain the reference phase and transmittance at the far field with no nano-
+    # structure present
+    select(str);
+    delete;                           
+    run;
+    T = transmission(mname); # get transmission spectra
+    f = getdata(mname,"f"); # get frequency vector
+    # Note that farfieldexact3d = farfieldexact when only one point is specified
+    refE=farfieldexact3d(mname,0,0,farpoint, [1:1:frq_point]);
+    refE=pinch(refE);
+    refphix=angle(refE(1,1:frq_point));
+    refphiy=angle(refE(2,1:frq_point));
+    refphiz=angle(refE(3,1:frq_point)); 
+    matlabsave("SimParams_unit" + num2str(unit(uniti)/nm) + "_RefField", refE, refphix, refphiy, refphiz, T); 
+    # After reference calculation add things back in
+    switchtolayout;
+    addcircle;
+    str="nanostruct";
+    set("name",str);
+    setnamed(str, "make ellipsoid", 1);
+    setnamed(str,"x",0);
+    setnamed(str,"y",0);
+    setnamed(str,"z min",substhick); 
+    setnamed(str,"z max",substhick+Th);
+    setnamed(str,"material","SnoChip_SiN");
+    setnamed(str, "radius", 15*nm);
+    setnamed(str, "radius 2", 15*nm);
+    
+    #Lx_vect = [275*nm:5*nm:unit(uniti)-50*nm];
+    #Ly_vect = [290*nm:5*nm:unit(uniti)-50*nm];
+    Lx_vect = [100*nm : 1*nm: 260*nm];
+    Ly_vect = [100*nm : 1*nm: 260*nm];
+    matlabsave("SimParams"+"_unit" +num2str(unit(uniti)/nm), Th, Lx_vect, Ly_vect, w, f);
+    for (len_inx = 1:length(Lx_vect)){    
+           
+        #resume partial
+        #if (len_inx!=1){
+            #Ly_vect = [60*nm:5*nm:unit(uniti)-50*nm];
+        #}    
+    
+        Lx = Lx_vect(len_inx);
+        Ly = Ly_vect(len_inx);
+        setnamed(str, "radius", Lx/2);
+        setnamed(str, "radius 2", Ly/2); 
+        setnamed("newmesh", "x span", 2*Lx+20*nm);
+        setnamed("newmesh", "y span",  2*Ly+20*nm);   
+        
+        run;       
+        T = transmission(mname); # get transmission spectra
+        f = getdata(mname,"f"); # get frequency vector
+        Ex=farfieldexact3d(mname,0,0,farpoint,[1:1:frq_point]);
+        Ex=pinch(Ex);
+        phasex=angle(Ex(1,1:frq_point))-refphix; # already does the reference subtraction
+        phasey=angle(Ex(2,1:frq_point))-refphiy;
+        phasez=angle(Ex(3,1:frq_point))-refphiz;   
+        TransX = abs(Ex)^2 / (abs(refE)^2 + 1e-12); # transmittence by square root of this term
+        ### Note that trans refers here to transmission and not transmittance! Be very cautious and aware of this. 
+        
+        matlabsave("unit" + num2str(unit(uniti)/nm)+ "_Lx" + num2str(Lx/nm)+ "_Ly" + num2str(Ly/nm), Ex, phasex, phasey, phasez, TransX, T, Lx, Ly);
+        switchtolayout;    
+           
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+               
