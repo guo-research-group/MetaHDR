@@ -35,7 +35,8 @@ python HDRreconstruction.py
 ![github_result2](https://github.com/guo-research-group/MetaHDR/assets/149278360/ac4aee93-6d48-45ac-9ba1-4b9aeed5389d)
 
 ## Sample Result - HDR reconstruction
-![Prototype1_result](https://github.com/guo-research-group/MetaHDR/assets/149278360/d585b8f9-c2fb-4fcf-b684-30c0064a2cb2)
+![HDRresult](https://github.com/guo-research-group/MetaHDR/assets/149278360/c1f71577-c50d-4244-bd54-44890925c64b)
+
 
 
 ## Citation
