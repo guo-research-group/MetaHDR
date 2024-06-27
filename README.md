@@ -13,21 +13,24 @@ Contact: liu3910@purdue.edu
 MetaHDR is a single-shot high-dynamic range (HDR) imaging and sensing system using a multifunctional metasurface. The system can simultaneously form 9 low dynamic range (LDR) images with distinct irradiance on a photosensor, and fuse them into HDR image using a gradient-based algorithm. MetaHDR achieves single-shot HDR photography and videography that increases the dynamic range by at least 50 dB compared to the original dynamic range of the photosensor. 
 
 ## Usage
-If you want to simulate the lens surface and profile, please make sure you have successfully installed DFlat, which can be done via
-```
-pip install dflat_opt
-```
-or
-```
-git clone https://github.com/DeanHazineh/DFlat
-pip install -e .
-```
-Then you can use our code, e.g., reconstruct a HDR image, by
+To install our code, run
 ```
 git clone https://github.com/guo-research-group/MetaHDR
 cd MetaHDR
+```
+
+To simulate the lens surface and profile, please make sure you have successfully installed DFlat.
+```
+git clone https://github.com/DeanHazineh/DFlat
+pip install -e .
+python PSFsimulation.py
+```
+
+To reconstruct a HDR image, run
+```
 python HDRreconstruction.py
 ```
+
 ## Sample Result - Metasurface Simulation
 ![github_result2](https://github.com/guo-research-group/MetaHDR/assets/149278360/ac4aee93-6d48-45ac-9ba1-4b9aeed5389d)
 
