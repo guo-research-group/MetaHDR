@@ -36,3 +36,15 @@ python HDRreconstruction.py
 
 ## Sample Result - HDR reconstruction
 ![github_result1](https://github.com/guo-research-group/MetaHDR/assets/149278360/85f47837-7f6f-408d-b3a2-17d0c4d84d5e)
+
+## Citation
+```
+@article{Brookshire2024,
+author = "Charles Brookshire and Yuxuan Liu and Yuanrui Chen and Wei-Ting Chen and Qi Guo",
+title = "{MetaHDR: Single Shot High-Dynamic Range Imaging and Sensing using a Multifunctional Metasurface}",
+year = "2024",
+month = "4",
+url = "https://preprints.opticaopen.org/articles/preprint/MetaHDR_Single_Shot_High-Dynamic_Range_Imaging_and_Sensing_using_a_Multifunctional_Metasurface/25719513",
+doi = "10.1364/opticaopen.25719513.v1"
+}
+```
