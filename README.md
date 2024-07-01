@@ -40,7 +40,7 @@ python HDRreconstruction.py
 ```
 
 ## Sample Result - Metasurface Simulation and Quantitative Analysis
-![1simulated-psf](https://github.com/guo-research-group/MetaHDR/assets/149278360/8ebc5d39-7d2e-4397-b181-28f5ffff73ab)
+![1simulated-psf](https://github.com/guo-research-group/MetaHDR/assets/149278360/b3d081ad-9d83-46e5-bc8f-2b9802e58381)
 
 
 ## Sample Result - HDR Reconstruction
