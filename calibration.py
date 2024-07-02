@@ -71,8 +71,8 @@ def homography(pts1, pts2, img1, img2, pt1_st, pt2_st):
 
 
 def getAlignedImages(img):
-    img1 = cv2.imread('.Imagedata/Calibration/Homography/1.tiff')[:, :, 0]
-    img2 = cv2.imread('.Imagedata/Calibration/Homography/2.tiff')[:, :, 0]
+    img1 = cv2.imread('./Imagedata/Calibration/Homography/1.tiff')[:, :, 0]
+    img2 = cv2.imread('./Imagedata/Calibration/Homography/2.tiff')[:, :, 0]
 
     # key point of I1
     x_st1 = 950
