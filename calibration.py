@@ -71,8 +71,8 @@ def homography(pts1, pts2, img1, img2, pt1_st, pt2_st):
 
 
 def getAlignedImages(img):
-    img1 = cv2.imread('./CalibrationImages/dotsCalibration/1.tiff')[:, :, 0]
-    img2 = cv2.imread('./CalibrationImages/dotsCalibration/2.tiff')[:, :, 0]
+    img1 = cv2.imread('.Imagedata/Calibration/Homography/1.tiff')[:, :, 0]
+    img2 = cv2.imread('.Imagedata/Calibration/Homography/2.tiff')[:, :, 0]
 
     # key point of I1
     x_st1 = 950
@@ -212,15 +212,15 @@ gradient_matrix_I = []
 for j in num_texture:
     for i in t:
         # the "true" image I2, and I3, are from exposure time t = 250000
-        img = cv2.imread(f"D:\\MetaHDR\\Calibration\\Texture\\texture{j}\\250000\\{i}.tiff",0)
+        img = cv2.imread(f"./Imagedata/Calibration/Texture/texture{j}/250000/{i}.tiff",0)
         I2I3_img.append(img)
 
         # I1 is from exposure time t = 50000
-        img = cv2.imread(f"D:\\MetaHDR\\Calibration\\Texture\\texture{j}\\50000\\{i}.tiff",0)
+        img = cv2.imread(f"./Imagedata/Calibration/Texture/texture{j}/50000/{i}.tiff",0)
         I1_img.append(img)
 
         # I4 - I9 are from exposure time t = 500000
-        img = cv2.imread(f"D:\\MetaHDR\\Calibration\\Texture\\texture{j}\\500000\\{i}.tiff",0)
+        img = cv2.imread(f"./Imagedata/Calibration/Texture/texture{j}/500000/{i}.tiff",0)
         I4I9_img.append(img)
 
 
