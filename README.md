@@ -38,6 +38,9 @@ MetaHDR
         │   HDRreconstructioni.py
     └───Data
         └───Imagedata
+            └───Reconstruction
+                    │   circuit.tiff
+                    │   watchgear.tiff
             └───Calibration
                 └───Homography
                     │   1.tiff
@@ -60,10 +63,6 @@ MetaHDR
                             │   0.tiff
                             │   ...
                             │   99.tiff
-          └───Reconstruction
-              │   circuit.tiff
-              │   watchgear.tiff
-
 ```
 
 ## Usage
