@@ -14,6 +14,58 @@ Contact: liu3910@purdue.edu
 
 MetaHDR is a single-shot high-dynamic range (HDR) imaging and sensing system using a multifunctional metasurface. The system can simultaneously form 9 low dynamic range (LDR) images with distinct irradiance on a photosensor, and fuse them into HDR image using a gradient-based algorithm. MetaHDR achieves single-shot HDR photography and videography that increases the dynamic range by at least 50 dB compared to the original dynamic range of the photosensor. 
 
+The structure of this repository is 
+```
+MetaHDR
+│   
+│
+└───Function: Metasurface design and simulation
+    └───Code
+        │   FDTD_simulation.lsf
+        │   PSFsimulation.py
+    └───Data
+        └───Metasurface_Library
+            │   AmorphSi_U300nm_H300nm.mat
+        └───Imagedata
+            └───Simulation
+                │   31.gif
+                │   ...
+                │   47.gif
+
+└───Function: HDR reconstruction
+    └───Code
+        │   calibration.py
+        │   HDRreconstructioni.py
+    └───Data
+        └───Imagedata
+            └───Calibration
+                └───Homography
+                    │   1.tiff
+                    │   2.tiff
+                └───Texture
+                    └───texture1
+                        └───50000
+                            │   0.tiff
+                            │   ...
+                            │   99.tiff
+                        └───200000
+                            │   0.tiff
+                            │   ...
+                            │   99.tiff
+                        └───250000
+                            │   0.tiff
+                            │   ...
+                            │   99.tiff
+                        └───500000
+                            │   0.tiff
+                            │   ...
+                            │   99.tiff
+          └───Reconstruction
+              │   circuit.tiff
+              │   watchgear.tiff
+
+```
+
 ## Usage
 
 ### Installation
