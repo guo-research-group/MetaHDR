@@ -9,7 +9,7 @@ Elmore Family School of Electrical and Computer Engineering, Purdue University
 Contact: liu3910@purdue.edu
 
 
-[Paper](https://opg.optica.org/oe/fulltext.cfm?uri=oe-32-15-26690&id=553173)
+[Paper (published on Optics Express)](https://opg.optica.org/oe/fulltext.cfm?uri=oe-32-15-26690&id=553173)
 ## Introduction
 
 MetaHDR is a single-shot high-dynamic range (HDR) imaging and sensing system using a multifunctional metasurface. The system can simultaneously form 9 low dynamic range (LDR) images with distinct irradiance on a photosensor, and fuse them into HDR image using a gradient-based algorithm. MetaHDR achieves single-shot HDR photography and videography that increases the dynamic range by at least 50 dB compared to the original dynamic range of the photosensor. 
