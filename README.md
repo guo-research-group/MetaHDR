@@ -9,7 +9,7 @@ Elmore Family School of Electrical and Computer Engineering, Purdue University
 Contact: liu3910@purdue.edu
 
 
-[Paper](https://preprints.opticaopen.org/articles/preprint/MetaHDR_Single_Shot_High-Dynamic_Range_Imaging_and_Sensing_using_a_Multifunctional_Metasurface/25719513)
+[Paper](https://opg.optica.org/oe/fulltext.cfm?uri=oe-32-15-26690&id=553173)
 ## Introduction
 
 MetaHDR is a single-shot high-dynamic range (HDR) imaging and sensing system using a multifunctional metasurface. The system can simultaneously form 9 low dynamic range (LDR) images with distinct irradiance on a photosensor, and fuse them into HDR image using a gradient-based algorithm. MetaHDR achieves single-shot HDR photography and videography that increases the dynamic range by at least 50 dB compared to the original dynamic range of the photosensor. 
@@ -126,12 +126,18 @@ for reference
 
 ## Citation
 ```
-@article{Brookshire2024,
-author = "Charles Brookshire and Yuxuan Liu and Yuanrui Chen and Wei-Ting Chen and Qi Guo",
-title = "{MetaHDR: Single Shot High-Dynamic Range Imaging and Sensing using a Multifunctional Metasurface}",
-year = "2024",
-month = "4",
-url = "https://preprints.opticaopen.org/articles/preprint/MetaHDR_Single_Shot_High-Dynamic_Range_Imaging_and_Sensing_using_a_Multifunctional_Metasurface/25719513",
-doi = "10.1364/opticaopen.25719513.v1"
+@article{MetaHDR:24,
+author = {Charles Brookshire and Yuxuan Liu and Yuanrui Chen and Wei Ting Chen and Qi Guo},
+journal = {Opt. Express},
+keywords = {Chemical vapor deposition; Computational imaging; Electron beam lithography; Image metrics; Imaging systems; Scanning electron microscopy},
+number = {15},
+pages = {26690--26707},
+publisher = {Optica Publishing Group},
+title = {MetaHDR: single shot high-dynamic range imaging and sensing using a multifunctional metasurface},
+volume = {32},
+month = {Jul},
+year = {2024},
+url = {https://opg.optica.org/oe/abstract.cfm?URI=oe-32-15-26690},
+doi = {10.1364/OE.528270},
 }
 ```
