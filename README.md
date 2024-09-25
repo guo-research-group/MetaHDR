@@ -1,6 +1,6 @@
 # MetaHDR: Single Shot High-dynamic Range Imaging and Sensing Using a Multifunctional Metasurface
 
-_Charles Brookshire*, Yuxuan Liu*, Yuanrui Chen, Wei-Ting Chen, and Qi Guo_
+_Charles Brookshire*, Yuxuan Liu*, Yuanrui Chen, [Wei-Ting Chen](https://www.weitingchen-meta.com/), and [Qi Guo](https://qiguo.org)_
 
 *Co-first authors with equal contribution
 
